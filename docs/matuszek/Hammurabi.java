@@ -32,6 +32,7 @@ public class Hammurabi {
             newYear();
             acres += askHowManyAcresToBuy(landPrice, stores);
             acres -= askHowManyAcresToSell(acres);
+            stores -= askHowMuchGrainToFeedPeople(stores);
         }while(this.year < 10);
     }
 
@@ -88,9 +89,9 @@ public class Hammurabi {
         }if(feed > bushels){
             System.out.println("There is not enough food.");
         }if(feed < bushels){
-            
+            this.stores -= feed;
         }
-        return 0;
+        return this.stores -= feed;
     }
 
 
