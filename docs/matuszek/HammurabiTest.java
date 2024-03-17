@@ -3,11 +3,15 @@ package hammurabi.docs.matuszek;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Scanner;
+
+import static java.lang.System.in;
 import static org.junit.Assert.*;
 
 public class HammurabiTest {
 
     Hammurabi ham;
+    Scanner scanner = new Scanner(System.in);
 
     boolean about(double expected, double actual) {
         return actual > 0.90 * expected && actual < 1.10 * expected;
@@ -20,6 +24,9 @@ public class HammurabiTest {
 
     @Test
     public void testHowManyAcresToBuy(){
+        //Given
+
+
 
     }
 

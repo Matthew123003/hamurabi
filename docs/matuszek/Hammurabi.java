@@ -15,7 +15,8 @@ public class Hammurabi {
 //    private int landValue = 19;
 
     public int totalDeaths = 0, percentDied = 0, year = 0, population = 100, stores = 2800, immigrants = 5, deaths,
-            harvest = 3000, yeild = 3, acres = harvest / yeild, eaten = harvest - stores, landPrice, fullPeople, temp;
+            harvest, yeild, acres = 1000, eaten = harvest - stores, landPrice, fullPeople, temp, seed;
+    public boolean plague = false;
 
     public static void main(String[] args) { // required in every Java program
         new Hammurabi().playGame();
@@ -33,6 +34,11 @@ public class Hammurabi {
             acres += askHowManyAcresToBuy(landPrice, stores);
             acres -= askHowManyAcresToSell(acres);
             stores -= askHowMuchGrainToFeedPeople(stores);
+            stores -= askHowManyAcresToPlant(acres, population, stores);
+            yeild += generateYeild();
+            harvest += harvest(seed);
+            stores += harvest;
+            
         }while(this.year < 10);
     }
 
@@ -53,11 +59,11 @@ public class Hammurabi {
         }if(buy * landPrice > bushels){
             System.out.println("Not enough stores");
         }if(buy * landPrice < bushels){
-            this.acres += buy;
-            this.stores -= buy * landPrice;
+            acres += buy;
+            stores -= buy * landPrice;
         }
 
-        return acres += buy;
+        return buy;
     }
 
 
@@ -71,10 +77,10 @@ public class Hammurabi {
         }if(sell > acresOwned){
             System.out.println("You don't have enough to sell");
         }if(sell < acres){
-            this.acres -= sell;
-            this.stores += sell * landPrice;
+            acres -= sell;
+            stores += sell * landPrice;
         }
-        return this.acres -= sell;
+        return sell;
     }
 
 
@@ -89,9 +95,9 @@ public class Hammurabi {
         }if(feed > bushels){
             System.out.println("There is not enough food.");
         }if(feed < bushels){
-            this.stores -= feed;
+            stores -= feed;
         }
-        return this.stores -= feed;
+        return feed;
     }
 
 
@@ -99,7 +105,47 @@ public class Hammurabi {
     //Ask the player how many acres to plant with grain, and returns that number.
     // You must have enough acres, enough grain, and enough people to do the planting. Any grain left over goes into storage for next year.
     public int askHowManyAcresToPlant(int acresOwned, int population, int bushels){
+        System.out.println("How many acres do you wish to seed?");
+        int seed = scanner.nextInt();
+        if(seed < 0){
+            System.out.println("Not a real number");
+        }if(seed > acresOwned){
+            System.out.println("You dont own that much land");
+        }if(seed / 2 > bushels){
+            System.out.println("Not enough food");
+        }if(seed > population * 10){
+            System.out.println("Not enough people to tend the fields");
+        }if(seed < population * 10 && seed / 2 < bushels && seed < acresOwned){
+            stores -= seed / 2;
+        }
+        return seed / 2;
+    }
+
+    public int generateYeild(){
+        yeild = (int) (Math.random() * 5 + 1);
+        return yeild;
+    }
+
+    public int harvest(int i) {
+        harvest = i * yeild;
+        return harvest;
+    }
+    public int grainEatenByRats(int i) {
         return 0;
+    }
+
+    public int immigrants(int i, int i1, int i2) {
+        return 0;
+    }
+
+    public boolean plague(){
+        if (20 * Math.random() >= 17){
+            plague = true;}
+        return plague;
+    }
+
+    public int plagueDeaths(int i) {
+        return i / 2;
     }
 
     public int starvationDeaths(int i, int i1) {
@@ -108,10 +154,6 @@ public class Hammurabi {
 
     public boolean uprising(int i, int i1) {
         return false;
-    }
-
-    public int harvest(int i) {
-        return 0;
     }
 
     public int newCostOfLand() {
@@ -134,19 +176,5 @@ public class Hammurabi {
         return answer;
     }
     //Needs many parameters passed through method
-    public String finalSummary(){
-        return null;
-    }
 
-    public int grainEatenByRats(int i) {
-        return 0;
-    }
-
-    public int immigrants(int i, int i1, int i2) {
-        return 0;
-    }
-
-    public int plagueDeaths(int i) {
-        return 0;
-    }
 }
