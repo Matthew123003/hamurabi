@@ -107,6 +107,7 @@ public class Hammurabi {
     public int askHowManyAcresToPlant(int acresOwned, int population, int bushels){
         System.out.println("How many acres do you wish to seed?");
         int seed = scanner.nextInt();
+        this.seed = seed;
         if(seed < 0){
             System.out.println("Not a real number");
         }if(seed > acresOwned){
@@ -135,6 +136,7 @@ public class Hammurabi {
     }
 
     public int immigrants(int i, int i1, int i2) {
+
         return 0;
     }
 
